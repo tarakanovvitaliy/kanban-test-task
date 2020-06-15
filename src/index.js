@@ -1,15 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './styles/style.scss';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+// firebase
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
+import firebaseConfig from './api/config/firebaseConfig';
+
+// styles
+import './styles/style.scss';
+
+// components
+import App from './App';
+
+
+firebase.initializeApp(firebaseConfig);
+ReactDOM.render( <React.StrictMode><App /></React.StrictMode>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
