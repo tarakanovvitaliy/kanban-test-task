@@ -1,0 +1,9 @@
+
+
+.DashboardColumn__header {
+  button {
+    &:before {
+      content: '+';
+    }
+  }
+}
