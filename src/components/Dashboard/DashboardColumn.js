@@ -1,10 +1,18 @@
-import React, { useEffect, useState, useRef } from 'react';
-import useOutsideClick from '../hooks/useOutsideClick';
-import { addColumn } from '../api/api';
+import React, { useEffect, useState, useRef, useContext } from 'react';
+
+// hooks // store // api
+import useOutsideClick from '../../hooks/useOutsideClick';
+import { DashboardContext } from './_store/dashboardContext';
+import { addColumn } from '../../api/dashboardApi';
+
+// components
+import DashboardItem from './DashboardItem';
 
 function DashboardColumn(props) {
-  const { title } = props;
+  const { title, columnId } = props;
+  const { items } = useContext(DashboardContext);
   const [ columnTitle, setColumnTitle ] = useState('');
+  const [ currentItems, setCurrentItems ] = useState([]);
   const [ addMode, setAddMode ] = useState(false);
   const refInput = useRef(null);
   const refColumn = useRef(null);
@@ -14,6 +22,13 @@ function DashboardColumn(props) {
   useEffect(() => {
     if (addMode) refInput.current.focus();
   }, [addMode]);
+
+  useEffect(() => {
+    if (items) {
+      setCurrentItems(items.filter(item => item.columnId === columnId));
+    }
+    // eslint-disable-next-line
+  }, [items]);
   
   function handleClick (event) {
     event.preventDefault();
@@ -53,6 +68,14 @@ function DashboardColumn(props) {
           </form>
         }
       </header>
+
+      { title &&
+        <div className="DashboardColumn__body">
+          { currentItems.map(item => <DashboardItem columnId={columnId} title={item.name} />)
+          }
+          <DashboardItem columnId={columnId} />
+        </div>
+      }
     </div>
   );
 }

@@ -15,6 +15,14 @@ export const columnsListener = (fetchColumns) => {
   });
 };
 
+export const itemsListener = (fetchItems) => {
+  db.collection('items').orderBy('createdAt', 'asc').onSnapshot(snap => {
+    const items = [];
+    snap.forEach(el => items.push({ ...el.data(), id: el.id }));
+    fetchItems(items);
+  });
+};
+
 export const addColumn = (colName) => {
   return db.collection('columns').add({
     name: colName,
@@ -22,4 +30,10 @@ export const addColumn = (colName) => {
   });
 };
 
-export const deleteColumn = (colId) => {};
+export const addItem = (itemName, columnId) => {
+  return db.collection('items').add({
+    columnId,
+    name: itemName,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  });
+};

@@ -1,10 +1,5 @@
 import React from 'react';
-import ContextProvider from './context/appContext';
-import Dashboard from './components/Dashboard';
-
-function AppProvider() {
-  return <ContextProvider><App /></ContextProvider>;
-}
+import Dashboard from './components/Dashboard/Dashboard';
 
 function App() {
   return (
@@ -15,4 +10,4 @@ function App() {
   );
 }
 
-export default AppProvider;
+export default App;
