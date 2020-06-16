@@ -1,0 +1,18 @@
+
+
+.App {
+  position: relative;
+  
+  .App__header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+
+    padding: 33px 0;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 4.4rem;
+    line-height: 1.1;
+  }
+}

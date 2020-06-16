@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef, useContext } from 'react';
 // hooks // store // api
 import useOutsideClick from '../../hooks/useOutsideClick';
 import { DashboardContext } from './_store/dashboardContext';
-import { addColumn } from '../../api/dashboardApi';
+import { addColumn, deleteColumn } from '../../api/dashboardApi';
 
 // components
 import DashboardItem from './DashboardItem';
@@ -30,6 +30,9 @@ function DashboardColumn(props) {
     // eslint-disable-next-line
   }, [items]);
   
+  function handleDelete () {
+    deleteColumn(columnId);
+  }
   function handleClick (event) {
     event.preventDefault();
     
@@ -53,11 +56,14 @@ function DashboardColumn(props) {
     <div className="DashboardColumn">
       <header ref={refColumn} className="DashboardColumn__header">
         { title
-          ? title
-          : <button onClick={handleClick} />
+          ? <>
+              <span>{ title }</span>
+              <button className="DashboardColumn__deleteBtn" onClick={handleDelete} />
+            </>
+          : <button className="DashboardColumn__addBtn" onClick={handleClick} />
         }
         { addMode && 
-          <form onSubmit={handleSubmit} >
+          <form className="DashboardColumn__input" onSubmit={handleSubmit} >
             <input 
               ref={refInput}
               type="text"
@@ -71,7 +77,7 @@ function DashboardColumn(props) {
 
       { title &&
         <div className="DashboardColumn__body">
-          { currentItems.map(item => <DashboardItem columnId={columnId} title={item.name} />)
+          { currentItems.map((item, i) => <DashboardItem key={i} columnId={columnId} title={item.name} />)
           }
           <DashboardItem columnId={columnId} />
         </div>

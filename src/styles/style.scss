@@ -1,5 +1,11 @@
+
+@import "../../node_modules/bourbon/core/bourbon";
+
 @import "reset";
 @import "fonts";
 @import "variables";
 @import "mixins";
-@import "main";
+
+// components
+@import "components/App";
+@import "components/Dashboard";

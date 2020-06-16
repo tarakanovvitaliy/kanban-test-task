@@ -30,6 +30,13 @@ export const addColumn = (colName) => {
   });
 };
 
+export const deleteColumn = async (id) => {
+  const items = await db.collection('items').where("columnId", "==", id).get();
+  const itemIds = []; items.forEach(el => itemIds.push(el.id));
+  await Promise.all(itemIds.map(id => db.collection('items').doc(id).delete()));
+  await db.collection('columns').doc(id).delete();
+};
+
 export const addItem = (itemName, columnId) => {
   return db.collection('items').add({
     columnId,
