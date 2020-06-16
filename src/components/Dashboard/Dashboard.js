@@ -11,20 +11,11 @@ function Dashboard(props) {
   const { columns, setColumns, setItems } = useContext(DashboardContext);
   
   useEffect(() => {
-    columnsListener(fetchColumns);
-    itemsListener(fetchItems);
+    columnsListener(columns => setColumns(columns));
+    itemsListener(items => setItems(items));
     // eslint-disable-next-line 
   }, []);
-  
 
-  function fetchColumns (columns) {
-    setColumns(columns);
-  }
-
-  function fetchItems (columns) {
-    setItems(columns);
-  }
-  
   return (
     <div className="Dashboard">
       { columns && columns.map((column, index) => 
